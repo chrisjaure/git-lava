@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# shell output
+warn() { echo "$@" >&2; }
+die() { warn "$@"; exit 1; }
+
+escape() {
+	echo "$1" | sed 's/\([\.\$\*]\)/\\\1/g'
+}
+
+# set logic
+has() {
+	local item=$1; shift
+	echo " $@ " | grep -q " $(escape $item) "
+}
+
+# git functionality
+
+git_local_branches() { git branch --no-color | sed 's/^[* ] //'; }
+git_remote_branches() { git branch -r --no-color | sed 's/^[* ] //'; }
+
+git_local_branch_exists() {
+	has $1 $(git_local_branches)
+}
+
+git_remote_branch_exists() {
+	has $1 $(git_remote_branches)
+}
+
+git_branch_exists() {
+	has $1 $(git_all_branches)
+}
+
+current_branch() {
+	git for-each-ref --format='%(refname:short)' `git symbolic-ref HEAD`
+}
+
+local_merge_target() {
+	if [ -z $2 ]; then
+		# get
+		git config branch.$1.localmerge
+	else
+		# set
+		git config branch.$1.localmerge $2
+	fi
+}
+
+branch_origin() {
+	git config branch.$1.remote
+}
+
+# Assertions
+
+require_local_branch() {
+	if ! git_local_branch_exists $1; then
+		die "fatal: Local branch '$1' does not exist and is required."
+	fi
+}
+
+require_remote_branch() {
+	if ! has $1 $(git_remote_branches); then
+		die "Remote branch '$1' does not exist and is required."
+	fi
+}
+
+require_branch() {
+	if ! has $1 $(git_all_branches); then
+		die "Branch '$1' does not exist and is required."
+	fi
+}
+
+require_branch_absent() {
+	if has $1 $(git_all_branches); then
+		die "Branch '$1' already exists. Pick another name."
+	fi
+}

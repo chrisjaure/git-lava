@@ -8,6 +8,8 @@
 
 export LAVA_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
 
+. "$LAVA_DIR/lava-common"
+
 SUBCOMMAND="$1"; shift
 
 if [ ! -e "$LAVA_DIR/lava-$SUBCOMMAND" ]; then

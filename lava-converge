@@ -1,5 +1,20 @@
 #!/bin/bash
 
 cmd_converge() {
-	echo $@
+	
+	local BRANCHNAME=$(current_branch)
+	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
+	local ORIGIN=$(branch_origin $MERGETARGET || echo origin)
+
+	require_local_branch $MERGETARGET
+	require_remote_branch "$ORIGIN/$MERGETARGET"
+
+	echo -e "Merging with branch '$MERGETARGET'"
+
+	# git fetch $ORIGIN/$MERGETARGET && \
+	# git rebase -p $ORIGIN/$MERGETARGET && \
+	# git checkout $MERGETARGET && \
+	# git merge $ORIGIN/$MERGETARGET && \
+	# git merge $BRANCHNAME
+
 }

@@ -1,6 +1,8 @@
 #!/bin/bash
 
 cmd_diverge() {
+
 	git checkout -b $1 ${2-master}
-	git config branch.$1.localmerge ${2-master}
+	local_merge_target $1 ${2-master}
+
 }
