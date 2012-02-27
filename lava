@@ -1,3 +1,19 @@
 #!/bin/bash
+#
+# git-lava
+#
+# Usage:
+# git lava diverge
+# git lava converge -d
 
-echo "test"
+export LAVA_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+
+SUBCOMMAND="$1"; shift
+
+if [ ! -e "$LAVA_DIR/lava-$SUBCOMMAND" ]; then
+	exit 1
+fi
+
+. "$LAVA_DIR/lava-$SUBCOMMAND"
+
+cmd_$SUBCOMMAND "$@"
