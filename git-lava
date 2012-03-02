@@ -4,7 +4,8 @@
 #
 # Usage:
 # git lava diverge
-# git lava converge -d
+# git lava converge
+# git lava flow -d
 
 export LAVA_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
 

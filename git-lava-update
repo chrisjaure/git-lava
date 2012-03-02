@@ -1,0 +1,16 @@
+#!/bin/bash
+
+cmd_update() {
+
+	local BRANCHNAME=$(current_branch)
+	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
+	local ORIGIN=$(branch_origin $MERGETARGET || echo origin)
+
+	require_remote_branch "$ORIGIN/$MERGETARGET"
+
+	echo "Rebase with branch \"$ORIGIN/$MERGETARGET\""
+
+	git fetch $ORIGIN $MERGETARGET
+	git rebase -p $ORIGIN/$MERGETARGET
+
+}

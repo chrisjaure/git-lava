@@ -9,6 +9,9 @@ SCRIPT_FILES =git-lava-common
 SCRIPT_FILES+=git-lava-converge
 SCRIPT_FILES+=git-lava-diverge
 SCRIPT_FILES+=git-lava-flow
+SCRIPT_FILES+=git-lava-ir
+SCRIPT_FILES+=git-lava-update
+SCRIPT_FILES+=git-lava-log
 
 # bash complete file
 BASH_COMPLETE_FILE=git-lava

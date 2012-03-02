@@ -1,0 +1,10 @@
+#!/bin/bash
+cmd_log() {
+
+	local BRANCHNAME=$(current_branch)
+	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
+	local ORIGIN=$(branch_origin $MERGETARGET || echo origin)
+
+	git log "$ORIGIN/$MERGETARGET.."
+	
+}
