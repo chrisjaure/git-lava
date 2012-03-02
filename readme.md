@@ -5,10 +5,8 @@ git-lava
 Installation
 ------------
 
-Add an alias in your ~/.gitconfig
-
 ```
-lava = "!f() { ~/path/to/lava $@; }; f"
+sudo make install
 ```
 
 

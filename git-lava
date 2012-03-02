@@ -8,14 +8,14 @@
 
 export LAVA_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
 
-. "$LAVA_DIR/lava-common"
+. "$LAVA_DIR/git-lava-common"
 
 SUBCOMMAND="$1"; shift
 
-if [ ! -e "$LAVA_DIR/lava-$SUBCOMMAND" ]; then
+if [ ! -e "$LAVA_DIR/git-lava-$SUBCOMMAND" ]; then
 	exit 1
 fi
 
-. "$LAVA_DIR/lava-$SUBCOMMAND"
+. "$LAVA_DIR/git-lava-$SUBCOMMAND"
 
 cmd_$SUBCOMMAND "$@"

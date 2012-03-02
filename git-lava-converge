@@ -11,10 +11,10 @@ cmd_converge() {
 
 	echo -e "Merging with branch '$MERGETARGET'"
 
-	# git fetch $ORIGIN/$MERGETARGET && \
-	# git rebase -p $ORIGIN/$MERGETARGET && \
-	# git checkout $MERGETARGET && \
-	# git merge $ORIGIN/$MERGETARGET && \
-	# git merge $BRANCHNAME
+	git fetch $ORIGIN $MERGETARGET && \
+	git rebase -p $ORIGIN/$MERGETARGET && \
+	git checkout $MERGETARGET && \
+	git merge $ORIGIN/$MERGETARGET && \
+	git merge $BRANCHNAME
 
 }

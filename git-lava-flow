@@ -1,0 +1,33 @@
+#!/bin/bash
+
+cmd_flow() {
+
+	local DELETE=0
+
+	while getopts d OPTION
+	do
+		case $OPTION in
+			d)	DELETE=1;;
+		esac
+	done
+
+	# Reset $@
+	shift `echo $OPTIND-1 | bc`
+
+	local BRANCHNAME=$(current_branch)
+	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
+	local ORIGIN=$(branch_origin $MERGETARGET || echo origin)
+
+	require_local_branch $MERGETARGET
+	require_remote_branch "$ORIGIN/$MERGETARGET"
+
+	. "$LAVA_DIR/git-lava-converge"
+
+	cmd_converge $MERGETARGET && \
+	git push $ORIGIN $MERGETARGET
+
+	if [ $DELETE = "1" ]; then
+		git branch -d $BRANCHNAME
+	fi
+
+}
