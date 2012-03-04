@@ -1,5 +1,4 @@
-git-lava
-============
+![git-lava](https://github.com/chrisjaure/git-lava/raw/master/logo.png)
 
 A branching metaphor for git.
 
