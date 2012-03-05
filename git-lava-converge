@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cmd_converge() {
+cmd_default() {
 	
 	local BRANCHNAME=$(current_branch)
 	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
@@ -13,9 +13,18 @@ cmd_converge() {
 
 	. "$LAVA_DIR/git-lava-update"
 
-	cmd_update && \
+	git lava update $MERGETARGET && \
 	git checkout $MERGETARGET && \
 	git merge $ORIGIN/$MERGETARGET && \
 	git merge $BRANCHNAME
+
+}
+
+cmd_help() {
+	
+	echo "git lava converge [<base>]"
+	echo
+	echo "Update the current branch and merge it into the base branch. Defaults"
+	echo "to the base branch saved by git lava diverge or master."
 
 }

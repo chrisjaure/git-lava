@@ -1,5 +1,5 @@
 #!/bin/bash
-cmd_log() {
+cmd_default() {
 
 	local BRANCHNAME=$(current_branch)
 	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
@@ -7,4 +7,12 @@ cmd_log() {
 
 	git log "$ORIGIN/$MERGETARGET.."
 	
+}
+
+cmd_help() {
+
+	echo "git lava log [<base>]"
+	echo
+	echo "Show commits on current branch that don't exist on the base branch."
+
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cmd_update() {
+cmd_default() {
 
 	local BRANCHNAME=$(current_branch)
 	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
@@ -12,5 +12,13 @@ cmd_update() {
 
 	git fetch $ORIGIN && \
 	git rebase -p $ORIGIN/$MERGETARGET
+
+}
+
+cmd_help() {
+	
+	echo "git lava update [<base>]"
+	echo
+	echo "Perform a rebase, pulling in changes from the remote base branch."
 
 }

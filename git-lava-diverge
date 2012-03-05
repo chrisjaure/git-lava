@@ -1,8 +1,17 @@
 #!/bin/bash
 
-cmd_diverge() {
+cmd_default() {
 
 	git checkout -b $1 ${2-master}
 	local_merge_target $1 ${2-master}
+
+}
+
+cmd_help() {
+
+	echo "git lava diverge <name> [<base>]"
+	echo
+	echo "Create a new branch that knows which branch it diverged from. The base"
+	echo "branch should be a remote tracking branch and defaults to master."
 
 }

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cmd_flow() {
+cmd_default() {
 
 	local DELETE=0
 
@@ -21,13 +21,20 @@ cmd_flow() {
 	require_local_branch $MERGETARGET
 	require_remote_branch "$ORIGIN/$MERGETARGET"
 
-	. "$LAVA_DIR/git-lava-converge"
-
-	cmd_converge $MERGETARGET && \
+	git lava converge $MERGETARGET && \
 	git push $ORIGIN $MERGETARGET
 
 	if [ $DELETE = "1" ]; then
 		git branch -d $BRANCHNAME
 	fi
+
+}
+
+cmd_help() {
+	
+	echo "git lava flow [-d] [<base>]"
+	echo
+	echo "Converges the current branch into the base branch, then pushes the base"
+	echo "branch. The optional -d flag will delete the current branch when done."
 
 }

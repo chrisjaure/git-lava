@@ -1,22 +1,43 @@
 #!/bin/bash
 #
 # git-lava
-#
-# Usage:
-# git lava diverge
-# git lava converge
-# git lava flow -d
 
 export LAVA_DIR=$(dirname "$(echo "$0" | sed -e 's,\\,/,g')")
+
+usage() {
+	echo "usage: git lava <subcommand>"
+	echo
+	echo "Subcommands:"
+	echo "   diverge    Make a new branch that remembers its base branch."
+	echo "   converge   Merge current branch into base branch."
+	echo "   flow       Converge and push base branch."
+	echo "   ir         Iteractive rebase against base branch."
+	echo "   log        View new commits in current branch."
+	echo "   update     Rebase new changes on base branch into current branch."
+	echo
+	echo "Type \"git lava <subcommand> help\" for more help on specific commands."
+}
 
 . "$LAVA_DIR/git-lava-common"
 
 SUBCOMMAND="$1"; shift
 
 if [ ! -e "$LAVA_DIR/git-lava-$SUBCOMMAND" ]; then
+	usage
 	exit 1
 fi
 
 . "$LAVA_DIR/git-lava-$SUBCOMMAND"
 
-cmd_$SUBCOMMAND "$@"
+SUBACTION="default"
+if [ "$1" = "help" ]; then
+	SUBACTION="help"; shift
+fi
+if ! type "cmd_$SUBACTION" >/dev/null 2>&1; then
+	warn "Unknown subcommand: '$SUBACTION'"
+	usage
+	exit 1
+fi
+
+# run the specified action
+cmd_$SUBACTION "$@"
