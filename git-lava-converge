@@ -11,8 +11,9 @@ cmd_converge() {
 
 	echo -e "Merging with branch '$MERGETARGET'"
 
-	git fetch $ORIGIN $MERGETARGET && \
-	git rebase -p $ORIGIN/$MERGETARGET && \
+	. "$LAVA_DIR/git-lava-update"
+
+	cmd_update && \
 	git checkout $MERGETARGET && \
 	git merge $ORIGIN/$MERGETARGET && \
 	git merge $BRANCHNAME

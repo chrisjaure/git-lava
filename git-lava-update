@@ -10,7 +10,7 @@ cmd_update() {
 
 	echo "Rebase with branch \"$ORIGIN/$MERGETARGET\""
 
-	git fetch $ORIGIN $MERGETARGET
+	git fetch $ORIGIN && \
 	git rebase -p $ORIGIN/$MERGETARGET
 
 }
