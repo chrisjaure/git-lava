@@ -10,6 +10,25 @@ Installation
 sudo make install
 ```
 
+
+Example
+-------
+
+Let's say you're collaborating on a remote feature branch called 'add-all-the-things' and you need to add one thing. Assuming you've got a local checkout of that branch, you'd do the following:
+
+```
+git lava diverge add-one-thing add-all-the-things
+# make some changes
+git commit -a
+```
+
+Since you've completed your task for this branch, you want to update it, merge it with 'add-all-the-things,' push that branch out, and then delete 'add-one-thing.' The following command will do all of that for you.
+
+```
+git lava flow -d
+```
+
+
 Usage
 -----
 
