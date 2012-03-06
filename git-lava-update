@@ -8,7 +8,7 @@ cmd_default() {
 
 	require_remote_branch "$ORIGIN/$MERGETARGET"
 
-	echo "Rebase with branch \"$ORIGIN/$MERGETARGET\""
+	echo "Rebase with branch '$ORIGIN/$MERGETARGET'"
 
 	git fetch $ORIGIN && \
 	git rebase -p $ORIGIN/$MERGETARGET
