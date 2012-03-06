@@ -1,5 +1,6 @@
 
 prefix=/usr/local
+bash_completion_prefix=/etc/bash_completion.d
 
 # files that need mode 755
 EXEC_FILES=git-lava
@@ -24,10 +25,10 @@ install:
 	install -d -m 0755 $(prefix)/bin
 	install -m 0755 $(EXEC_FILES) $(prefix)/bin
 	install -m 0644 $(SCRIPT_FILES) $(prefix)/bin
-	install -m 0644 bash_completion/$(BASH_COMPLETE_FILE) /etc/bash_completion.d
+	install -m 0644 bash_completion/$(BASH_COMPLETE_FILE) $(bash_completion_prefix)
 
 uninstall:
 	test -d $(prefix)/bin && \
 	cd $(prefix)/bin && \
 	rm -f $(EXEC_FILES) $(SCRIPT_FILES)
-	rm /etc/bash_completion.d/$(BASH_COMPLETE_FILE)
+	rm -f $(bash_completion_prefix)/$(BASH_COMPLETE_FILE)
