@@ -32,6 +32,10 @@ git lava flow -d
 Usage
 -----
 
+`git lava` - Get usage information.
+
+`git lava <subcommand> help` - Get usage information for a specific subcommand.
+
 `git lava diverge <name> [<base>]` - Create a new branch that knows which branch it diverged from. The base branch should be a remote tracking branch and defaults to master.
 
 `git lava converge [<base>]` - Merge the current branch into the base branch. Defaults to the base branch saved by `git lava diverge` or master.
