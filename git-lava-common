@@ -74,3 +74,13 @@ require_branch_absent() {
 		die "Branch '$1' already exists. Pick another name."
 	fi
 }
+
+#misc
+
+run_hook() {
+	local DOT_GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
+
+	if [ -x "$DOT_GIT_DIR/hooks/$1" ]; then
+		. "$DOT_GIT_DIR/hooks/$1"
+	fi
+}

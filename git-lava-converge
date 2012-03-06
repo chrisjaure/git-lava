@@ -6,12 +6,12 @@ cmd_default() {
 	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
 	local ORIGIN=$(branch_origin $MERGETARGET || echo origin)
 
+	run_hook "pre-lava-converge"
+
 	require_local_branch $MERGETARGET
 	require_remote_branch "$ORIGIN/$MERGETARGET"
 
 	echo -e "Merging with branch '$MERGETARGET'"
-
-	. "$LAVA_DIR/git-lava-update"
 
 	git lava update $MERGETARGET && \
 	git checkout $MERGETARGET && \
