@@ -24,7 +24,7 @@ cmd_default() {
 	git lava converge $MERGETARGET && \
 	git push $ORIGIN $MERGETARGET
 
-	if [ $DELETE = "1" ]; then
+	if [ $DELETE -eq 1 -a $? -eq 0 ]; then
 		git branch -d $BRANCHNAME
 	fi
 
