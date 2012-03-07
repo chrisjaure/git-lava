@@ -1,7 +1,7 @@
 #!bash
 
 _git_lava() {
-	local subcommands="flow diverge converge ir update log"
+	local subcommands="flow diverge converge melt erupt examine"
 
 	local subcommand="$(__git_find_on_cmdline "$subcommands")"
 	if [ -z "$subcommand" ]; then
@@ -22,11 +22,15 @@ _git_lava() {
 		_git_checkout
 		return
 		;;
-	ir)
+	melt)
 		_git_checkout
 		return
 		;;
-	update)
+	erupt)
+		_git_checkout
+		return
+		;;
+	examine)
 		_git_checkout
 		return
 		;;

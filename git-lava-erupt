@@ -1,0 +1,40 @@
+#!/bin/bash
+
+cmd_default() {
+
+	local DELETE=0
+
+	while getopts d OPTION
+	do
+		case $OPTION in
+			d)	DELETE=1;;
+		esac
+	done
+
+	# Reset $@
+	shift `echo $OPTIND-1 | bc`
+
+	local BRANCHNAME=$(current_branch)
+	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
+	local ORIGIN=$(branch_origin $MERGETARGET || echo origin)
+
+	require_local_branch $MERGETARGET
+	require_remote_branch "$ORIGIN/$MERGETARGET"
+
+	git lava converge $MERGETARGET && \
+	git push $ORIGIN $MERGETARGET
+
+	if [ $DELETE -eq 1 -a $? -eq 0 ]; then
+		git branch -d $BRANCHNAME
+	fi
+
+}
+
+cmd_help() {
+	
+	echo "git lava erupt [-d] [<base>]"
+	echo
+	echo "Converges the current branch into the base branch, then pushes the base"
+	echo "branch. The optional -d flag will delete the current branch when done."
+
+}

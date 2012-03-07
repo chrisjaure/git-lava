@@ -1,17 +1,33 @@
 #!/bin/bash
 cmd_default() {
 
+	local DIFF=0
+
+	while getopts d OPTION
+	do
+		case $OPTION in
+			d)	DIFF=1;;
+		esac
+	done
+
+	# Reset $@
+	shift `echo $OPTIND-1 | bc`
+
 	local BRANCHNAME=$(current_branch)
 	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
 	local ORIGIN=$(branch_origin $MERGETARGET || echo origin)
 
-	git log "$ORIGIN/$MERGETARGET.."
+	if [ $DIFF -eq 1 ]; then
+		git diff "$ORIGIN/$MERGETARGET.."
+	else
+		git log "$ORIGIN/$MERGETARGET.."
+	fi
 	
 }
 
 cmd_help() {
 
-	echo "git lava log [<base>]"
+	echo "git lava examine [-d] [<base>]"
 	echo
 	echo "Show commits on current branch that don't exist on the base branch."
 

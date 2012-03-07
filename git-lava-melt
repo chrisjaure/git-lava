@@ -8,17 +8,16 @@ cmd_default() {
 
 	require_remote_branch "$ORIGIN/$MERGETARGET"
 
-	echo "Rebase with branch '$ORIGIN/$MERGETARGET'"
+	echo "Interactive rebase with branch '$ORIGIN/$MERGETARGET'"
 
-	git fetch $ORIGIN && \
-	git rebase -p $ORIGIN/$MERGETARGET
+	git rebase -i $ORIGIN/$MERGETARGET
 
 }
 
 cmd_help() {
-	
-	echo "git lava update [<base>]"
+
+	echo "git lava melt [<base>]"
 	echo
-	echo "Perform a rebase, pulling in changes from the remote base branch."
+	echo "Perform an interactive rebase against the remote base branch."
 
 }

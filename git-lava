@@ -10,10 +10,10 @@ usage() {
 	echo "Subcommands:"
 	echo "   diverge    Make a new branch that remembers its base branch."
 	echo "   converge   Merge current branch into base branch."
-	echo "   flow       Converge and push base branch."
-	echo "   ir         Iteractive rebase against base branch."
-	echo "   log        View new commits in current branch."
-	echo "   update     Rebase new changes on base branch into current branch."
+	echo "   erupt      Converge and push base branch."
+	echo "   melt       Iteractive rebase against base branch."
+	echo "   examine    View new commits in current branch."
+	echo "   flow       Rebase new changes on base branch into current branch."
 	echo
 	echo "Type \"git lava <subcommand> help\" for more help on specific commands."
 }

@@ -13,7 +13,7 @@ cmd_default() {
 
 	echo -e "Merging with branch '$MERGETARGET'"
 
-	git lava update $MERGETARGET && \
+	git lava flow $MERGETARGET && \
 	git checkout $MERGETARGET && \
 	git merge $ORIGIN/$MERGETARGET && \
 	git merge $BRANCHNAME

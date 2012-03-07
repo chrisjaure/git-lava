@@ -40,13 +40,13 @@ Usage
 
 `git lava converge [<base>]` - Merge the current branch into the base branch. Defaults to the base branch saved by `git lava diverge` or master.
 
-`git lava flow [-d] [<base>]` - Same as above, but also push the base branch. The optional `-d` flag will delete the current branch.
+`git lava erupt [-d] [<base>]` - Same as above, but also push the base branch. The optional `-d` flag will delete the current branch.
 
-`git lava ir [<base>]` - Perform an interactive rebase against the remote base branch.
+`git lava melt [<base>]` - Perform an interactive rebase against the remote base branch.
 
-`git lava log [<base>] ` - Show commits on current branch that don't exist on the base branch.
+`git lava examine [-d] [<base>] ` - Show log of current branch that don't exist on the base branch. Optional `-d` flag will show diff.
 
-`git lava update [<base>]` - Perform a rebase, pulling in changes from the remote base branch.
+`git lava flow [<base>]` - Perform a rebase, pulling in changes from the remote base branch.
 
 
 Credits
