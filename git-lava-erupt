@@ -3,11 +3,17 @@
 cmd_default() {
 
 	local DELETE=0
+	local FLAGS
 
-	while getopts d OPTION
+	while getopts dm OPTION
 	do
 		case $OPTION in
-			d)	DELETE=1;;
+			d)
+				DELETE=1
+				;;
+			m)
+				FLAGS="-m"
+				;;
 		esac
 	done
 
@@ -21,7 +27,7 @@ cmd_default() {
 	require_local_branch $MERGETARGET
 	require_remote_branch "$ORIGIN/$MERGETARGET"
 
-	git lava converge $MERGETARGET && \
+	git lava converge $FLAGS $MERGETARGET && \
 	git push $ORIGIN $MERGETARGET
 
 	if [ $DELETE -eq 1 -a $? -eq 0 ]; then
@@ -32,9 +38,10 @@ cmd_default() {
 
 cmd_help() {
 	
-	echo "git lava erupt [-d] [<base>]"
+	echo "git lava erupt [-dm] [<base>]"
 	echo
 	echo "Converges the current branch into the base branch, then pushes the base"
 	echo "branch. The optional -d flag will delete the current branch when done."
+	echo "The optional -m flag will force a merge commit."
 
 }
