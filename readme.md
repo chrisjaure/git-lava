@@ -38,9 +38,9 @@ Usage
 
 `git lava diverge <name> [<base>]` - Create a new branch that knows which branch it diverged from. The base branch should be a remote tracking branch and defaults to master.
 
-`git lava converge [<base>]` - Merge the current branch into the base branch. Defaults to the base branch saved by `git lava diverge` or master.
+`git lava converge [-m] [<base>]` - Merge the current branch into the base branch. Defaults to the base branch saved by `git lava diverge` or master. The optional `-m` flag will force a merge commit.
 
-`git lava erupt [-d] [<base>]` - Same as above, but also push the base branch. The optional `-d` flag will delete the current branch.
+`git lava erupt [-dm] [<base>]` - Same as above, but also push the base branch. The optional `-d` flag will delete the current branch. The optional `-m` flag will force a merge commit.
 
 `git lava melt [<base>]` - Perform an interactive rebase against the remote base branch.
 
