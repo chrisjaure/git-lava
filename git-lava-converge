@@ -2,6 +2,18 @@
 
 cmd_default() {
 	
+	local FLAGS
+
+	while getopts m OPTION
+	do
+		case $OPTION in
+			m)	FLAGS="--no-ff";;
+		esac
+	done
+
+	# Reset $@
+	shift `echo $OPTIND-1 | bc`
+
 	local BRANCHNAME=$(current_branch)
 	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
 	local ORIGIN=$(branch_origin $MERGETARGET || echo origin)
@@ -16,15 +28,16 @@ cmd_default() {
 	git lava flow $MERGETARGET && \
 	git checkout $MERGETARGET && \
 	git merge $ORIGIN/$MERGETARGET && \
-	git merge $BRANCHNAME
+	git merge $FLAGS $BRANCHNAME
 
 }
 
 cmd_help() {
 	
-	echo "git lava converge [<base>]"
+	echo "git lava converge [-m] [<base>]"
 	echo
 	echo "Update the current branch and merge it into the base branch. Defaults"
-	echo "to the base branch saved by git lava diverge or master."
+	echo "to the base branch saved by git lava diverge or master. Use optional"
+	echo "-m flag to force a merge commit."
 
 }
