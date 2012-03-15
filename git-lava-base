@@ -1,0 +1,18 @@
+#!/bin/bash
+
+cmd_default() {
+	
+	local BRANCHNAME=${1:-$(current_branch)}
+	local MERGETARGET=$(local_merge_target $BRANCHNAME || echo master)
+
+	echo $MERGETARGET
+
+}
+
+cmd_help() {
+	
+	echo "git lava base [<name>]"
+	echo
+	echo "Get the base branch of the current or specified branch."
+
+}

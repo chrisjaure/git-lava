@@ -13,6 +13,7 @@ SCRIPT_FILES+=git-lava-flow
 SCRIPT_FILES+=git-lava-erupt
 SCRIPT_FILES+=git-lava-melt
 SCRIPT_FILES+=git-lava-examine
+SCRIPT_FILES+=git-lava-base
 
 # bash complete file
 BASH_COMPLETE_FILE=git-lava

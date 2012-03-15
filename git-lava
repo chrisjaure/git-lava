@@ -14,6 +14,7 @@ usage() {
 	echo "   melt       Iteractive rebase against base branch."
 	echo "   examine    View new commits in current branch."
 	echo "   flow       Rebase new changes on base branch into current branch."
+	echo "   base       Get base branch of current or specified branch."
 	echo
 	echo "Type \"git lava <subcommand> help\" for more help on specific commands."
 }

@@ -48,6 +48,14 @@ Usage
 
 `git lava flow [<base>]` - Perform a rebase, pulling in changes from the remote base branch.
 
+`git lava base [<name>]` - Shortcut for getting the base branch of the current or specified branch.
+
+
+Hooks
+-----
+
+`pre-lava-converge` - This will be run before a converge or erupt happens.
+
 
 Credits
 -------

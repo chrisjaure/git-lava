@@ -1,7 +1,7 @@
 #!bash
 
 _git_lava() {
-	local subcommands="flow diverge converge melt erupt examine"
+	local subcommands="flow diverge converge melt erupt examine base"
 
 	local subcommand="$(__git_find_on_cmdline "$subcommands")"
 	if [ -z "$subcommand" ]; then
