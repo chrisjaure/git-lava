@@ -32,6 +32,8 @@ cmd_default() {
 
 	if [ $DELETE -eq 1 -a $? -eq 0 ]; then
 		git branch -d $BRANCHNAME
+	else
+		git checkout $BRANCHNAME
 	fi
 
 }
