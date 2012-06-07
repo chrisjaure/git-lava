@@ -25,7 +25,7 @@ git commit -a
 Since you've completed your task for this branch, you want to update it, merge it with 'add-all-the-things,' push that branch out, and then delete 'add-one-thing.' The following command will do all of that for you.
 
 ```
-git lava flow -d
+git lava erupt -d
 ```
 
 
