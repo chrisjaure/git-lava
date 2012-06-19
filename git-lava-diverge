@@ -2,16 +2,44 @@
 
 cmd_default() {
 
-	git checkout -b $1 ${2-master}
-	local_merge_target $1 ${2-master}
+	local NEW_BRANCH
+	local OLD_BRANCH="master"
+
+	while getopts b OPTION
+	do
+		case $OPTION in
+			b)
+				OLD_BRANCH=$(current_branch)
+				;;
+		esac
+	done
+
+	# Reset $@
+	shift `echo $OPTIND-1 | bc`
+
+	NEW_BRANCH=$1
+
+	if [ "$2" ]; then
+		OLD_BRANCH=$2
+	fi
+
+	if [ -z "$NEW_BRANCH" ]; then
+		die "fatal: please specify a new branch name"
+	fi
+
+	echo "Diverging from '$OLD_BRANCH'"
+
+	git checkout -b $1 $OLD_BRANCH
+	local_merge_target $1 $OLD_BRANCH
 
 }
 
 cmd_help() {
 
-	echo "git lava diverge <name> [<base>]"
+	echo "git lava diverge [-b] <name> [<base>]"
 	echo
 	echo "Create a new branch that knows which branch it diverged from. The base"
 	echo "branch should be a remote tracking branch and defaults to master."
+	echo "Use the optional -b flag to use current branch as the base branch."
 
 }

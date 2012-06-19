@@ -36,7 +36,7 @@ Usage
 
 `git lava <subcommand> help` - Get usage information for a specific subcommand.
 
-`git lava diverge <name> [<base>]` - Create a new branch that knows which branch it diverged from. The base branch should be a remote tracking branch and defaults to master.
+`git lava diverge [-b] <name> [<base>]` - Create a new branch that knows which branch it diverged from. The base branch should be a remote tracking branch and defaults to master. Use the optional `-b` flag to use the current branch as the base branch.
 
 `git lava converge [-m] [<base>]` - Merge the current branch into the base branch. Defaults to the base branch saved by `git lava diverge` or master. The optional `-m` flag will force a merge commit.
 
