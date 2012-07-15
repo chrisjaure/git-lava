@@ -3,32 +3,28 @@ cmd_default() {
 
 	local DIFF=0
 
-	while getopts d OPTION
-	do
-		case $OPTION in
-			d)	DIFF=1;;
-		esac
-	done
-
-	# Reset $@
-	shift `echo $OPTIND-1 | bc`
+	if [ "$1" = "-d" ]; then
+		DIFF=1; shift
+	fi
 
 	local BRANCHNAME=$(current_branch)
-	local MERGETARGET=${1:-$(local_merge_target $BRANCHNAME || echo master)}
+	local MERGETARGET=$(local_merge_target $BRANCHNAME || echo master)
 	local ORIGIN=$(branch_origin $MERGETARGET || echo origin)
 
 	if [ $DIFF -eq 1 ]; then
-		git diff "$ORIGIN/$MERGETARGET.."
+		git diff "$ORIGIN/$MERGETARGET..." "$@"
 	else
-		git log "$ORIGIN/$MERGETARGET.."
+		git log "$ORIGIN/$MERGETARGET.." "$@"
 	fi
 	
 }
 
 cmd_help() {
 
-	echo "git lava examine [-d] [<base>]"
+	echo "git lava examine [-d]"
 	echo
 	echo "Show commits on current branch that don't exist on the base branch."
+	echo "Optional `-d` flag will show diff."
+	echo "Any extra arguments are passed to git log or git diff."
 
 }
