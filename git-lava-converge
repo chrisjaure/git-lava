@@ -25,9 +25,7 @@ cmd_default() {
 
 	echo -e "Merging with branch '$MERGETARGET'"
 
-	if [ ! "$FLAGS" ]; then
-		git lava flow $MERGETARGET
-	fi
+	git lava flow $MERGETARGET && \
 	git checkout $MERGETARGET && \
 	git merge $ORIGIN/$MERGETARGET && \
 	git merge $FLAGS $BRANCHNAME
