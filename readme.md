@@ -36,11 +36,11 @@ Usage
 
 `git lava <subcommand> help` - Get usage information for a specific subcommand.
 
-`git lava diverge [-b] <name> [<base>]` - Create a new branch that knows which branch it diverged from. The base branch should be a remote tracking branch and defaults to master. Use the optional `-b` flag to use the current branch as the base branch.
+`git lava diverge [-b] [-r] <name> [<base>]` - Create a new branch that knows which branch it diverged from. The base branch should be a remote tracking branch and defaults to master. Use the optional `-b` flag to use the current branch as the base branch. When using the `-r` flag, you can provide a remote branch that will be checked out and diverged from. The new branch name will have `-dev` appended to it.
 
 `git lava converge [-m] [<base>]` - Merge the current branch into the base branch. Defaults to the base branch saved by `git lava diverge` or master. The optional `-m` flag will force a merge commit.
 
-`git lava erupt [-dm] [<base>]` - Same as above, but also push the base branch. The optional `-d` flag will delete the current branch. The optional `-m` flag will force a merge commit.
+`git lava erupt [-dDm] [<base>]` - Same as above, but also push the base branch. The optional `-d` flag will delete the current branch. The optional `-D` will delete both the current branch and the merge target. The optional `-m` flag will force a merge commit.
 
 `git lava melt [<base>]` - Perform an interactive rebase against the remote base branch.
 

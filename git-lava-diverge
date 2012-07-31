@@ -3,43 +3,59 @@
 cmd_default() {
 
 	local NEW_BRANCH
+	local USE_REMOTE=false
 	local OLD_BRANCH="master"
 
-	while getopts b OPTION
+	while getopts br OPTION
 	do
 		case $OPTION in
 			b)
 				OLD_BRANCH=$(current_branch)
 				;;
+			r)
+				USE_REMOTE=true
+				;;
 		esac
 	done
 
 	# Reset $@
-	shift `echo $OPTIND-1 | bc`
+	shift $((OPTIND-1))
 
-	NEW_BRANCH=$1
+	if [ USE_REMOTE ]; then
+		require_remote_branch "$1"
+		echo "Checking out '$1'"
+		git checkout -t "$1"
+		NEW_BRANCH="$(current_branch)-dev"
+		OLD_BRANCH=$(current_branch)
+	else
+		NEW_BRANCH=$1
 
-	if [ "$2" ]; then
-		OLD_BRANCH=$2
-	fi
+		if [ "$2" ]; then
+			OLD_BRANCH=$2
+		fi
 
-	if [ -z "$NEW_BRANCH" ]; then
-		die "fatal: please specify a new branch name"
+		if [ -z "$NEW_BRANCH" ]; then
+			die "fatal: please specify a new branch name"
+		fi
 	fi
 
 	echo "Diverging from '$OLD_BRANCH'"
 
-	git checkout -b $1 $OLD_BRANCH
-	local_merge_target $1 $OLD_BRANCH
+	git checkout -b $NEW_BRANCH $OLD_BRANCH
+	local_merge_target $NEW_BRANCH $OLD_BRANCH
 
 }
 
 cmd_help() {
 
-	echo "git lava diverge [-b] <name> [<base>]"
+	echo "git lava diverge [-b]<name> [<base>]"
+	echo "git lava diverge -r <remote>"
 	echo
 	echo "Create a new branch that knows which branch it diverged from. The base"
 	echo "branch should be a remote tracking branch and defaults to master."
 	echo "Use the optional -b flag to use current branch as the base branch."
+	echo ""
+	echo "The second form will checkout the provided remote branch and diverge"
+	echo "from that, appending -dev to the new branch name."
 
 }

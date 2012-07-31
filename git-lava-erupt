@@ -5,11 +5,14 @@ cmd_default() {
 	local DELETE=0
 	local FLAGS
 
-	while getopts dm OPTION
+	while getopts dDm OPTION
 	do
 		case $OPTION in
 			d)
 				DELETE=1
+				;;
+			D)
+				DELETE=2
 				;;
 			m)
 				FLAGS="-m"
@@ -30,8 +33,11 @@ cmd_default() {
 	git lava converge $FLAGS $MERGETARGET && \
 	git push $ORIGIN $MERGETARGET
 
-	if [ $DELETE -eq 1 -a $? -eq 0 ]; then
+	if [ $DELETE -eq 1 ] && [ $? -eq 0 ]; then
 		git branch -d $BRANCHNAME
+	elif [ $DELETE -eq 2 ] && [ $? -eq 0 ] && [ "$MERGETARGET" != "master" ]; then
+		git checkout master
+		git branch -d $BRANCHNAME $MERGETARGET
 	else
 		git checkout $BRANCHNAME
 	fi
@@ -40,10 +46,11 @@ cmd_default() {
 
 cmd_help() {
 	
-	echo "git lava erupt [-dm] [<base>]"
+	echo "git lava erupt [-dDm] [<base>]"
 	echo
 	echo "Converges the current branch into the base branch, then pushes the base"
 	echo "branch. The optional -d flag will delete the current branch when done."
+	echo "The optional -D flag will delete both the current branch and the merge target."
 	echo "The optional -m flag will force a merge commit."
 
 }
