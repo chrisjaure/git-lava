@@ -3,7 +3,7 @@
 cmd_default() {
 
 	local NEW_BRANCH
-	local USE_REMOTE=false
+	local USE_REMOTE=0
 	local OLD_BRANCH="master"
 
 	while getopts br OPTION
@@ -13,7 +13,7 @@ cmd_default() {
 				OLD_BRANCH=$(current_branch)
 				;;
 			r)
-				USE_REMOTE=true
+				USE_REMOTE=1
 				;;
 		esac
 	done
@@ -21,7 +21,7 @@ cmd_default() {
 	# Reset $@
 	shift $((OPTIND-1))
 
-	if [ USE_REMOTE ]; then
+	if [ $USE_REMOTE -eq 1 ]; then
 		require_remote_branch "$1"
 		echo "Checking out '$1'"
 		git checkout -t "$1"
