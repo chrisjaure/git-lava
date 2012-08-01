@@ -3,11 +3,12 @@
 cmd_default() {
 	
 	local FLAGS
+	local FF=0
 
-	while getopts m OPTION
+	while getopts f OPTION
 	do
 		case $OPTION in
-			m)	FLAGS="--no-ff";;
+			f)	FF=1;;
 		esac
 	done
 
@@ -25,6 +26,11 @@ cmd_default() {
 
 	echo -e "Merging with branch '$MERGETARGET'"
 
+	if [ $(git log "$ORIGIN/$MERGETARGET..$BRANCHNAME" --oneline | wc -l) -gt 1 ] && [ $FF -eq 0 ]; then
+		FLAGS="--no-ff"
+		echo -e "(Creating a merge commit)"
+	fi
+
 	git lava flow $MERGETARGET && \
 	git checkout $MERGETARGET && \
 	git merge $ORIGIN/$MERGETARGET && \
@@ -34,10 +40,11 @@ cmd_default() {
 
 cmd_help() {
 	
-	echo "git lava converge [-m] [<base>]"
+	echo "git lava converge [-f] [<base>]"
 	echo
 	echo "Update the current branch and merge it into the base branch. Defaults"
-	echo "to the base branch saved by git lava diverge or master. Use optional"
-	echo "-m flag to force a merge commit."
+	echo "to the base branch saved by git lava diverge or master. By default,"
+	echo "if there is more than 1 commit, a merge commit will be created."
+	echo "To always fast-forward, use the optional -f flag."
 
 }

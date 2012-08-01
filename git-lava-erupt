@@ -5,7 +5,7 @@ cmd_default() {
 	local DELETE=0
 	local FLAGS
 
-	while getopts dDm OPTION
+	while getopts dDf OPTION
 	do
 		case $OPTION in
 			d)
@@ -14,8 +14,8 @@ cmd_default() {
 			D)
 				DELETE=2
 				;;
-			m)
-				FLAGS="-m"
+			f)
+				FLAGS="-f"
 				;;
 		esac
 	done
@@ -46,11 +46,11 @@ cmd_default() {
 
 cmd_help() {
 	
-	echo "git lava erupt [-dDm] [<base>]"
+	echo "git lava erupt [-dDf] [<base>]"
 	echo
 	echo "Converges the current branch into the base branch, then pushes the base"
-	echo "branch. The optional -d flag will delete the current branch when done."
-	echo "The optional -D flag will delete both the current branch and the merge target."
-	echo "The optional -m flag will force a merge commit."
-
+	echo "branch. By default, if there is more than one commit, a merge commit"
+	echo "will be created. To always fast-forward, use the optional -f flag."
+	echo "The optional -d flag will delete the current branch when done. The"
+	echo "optional -D flag will delete both the current branch and the merge target."
 }
