@@ -13,7 +13,7 @@ usage() {
 	echo "   erupt      Converge and push base branch."
 	echo "   expose     Push new local branch to remote for collaboration."
 	echo "   melt       Iteractive rebase against base branch."
-	echo "   examine    View new commits in current branch."
+	echo "   survey     View new commits in current branch."
 	echo "   flow       Rebase new changes on base branch into current branch."
 	echo "   base       Get base branch of current or specified branch."
 	echo

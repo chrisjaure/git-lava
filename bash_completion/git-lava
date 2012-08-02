@@ -1,7 +1,7 @@
 #!bash
 
 _git_lava() {
-	local subcommands="flow diverge converge melt erupt examine base expose"
+	local subcommands="flow diverge converge melt erupt survey base expose"
 
 	local subcommand="$(__git_find_on_cmdline "$subcommands")"
 	if [ -z "$subcommand" ]; then
@@ -27,10 +27,6 @@ _git_lava() {
 		return
 		;;
 	erupt)
-		_git_checkout
-		return
-		;;
-	examine)
 		_git_checkout
 		return
 		;;

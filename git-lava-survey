@@ -21,10 +21,10 @@ cmd_default() {
 
 cmd_help() {
 
-	echo "git lava examine [-d]"
+	echo "git lava survey [-d]"
 	echo
 	echo "Show commits on current branch that don't exist on the base branch."
-	echo "Optional `-d` flag will show diff."
-	echo "Any extra arguments are passed to git log or git diff."
+	echo "Optional `-d` flag will show diff. Any extra arguments are passed"
+	echo "to git log or git diff."
 
 }

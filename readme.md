@@ -46,7 +46,7 @@ Usage
 
 `git lava melt [<base>]` - Perform an interactive rebase against the remote base branch.
 
-`git lava examine [-d]` - Show commits on current branch that don't exist on the base branch. Optional `-d` flag will show diff. Any extra arguments are passed to git log or git diff.
+`git lava survey [-d]` - Show commits on current branch that don't exist on the base branch. Optional `-d` flag will show diff. Any extra arguments are passed to git log or git diff.
 
 `git lava flow [<base>]` - Perform a rebase, pulling in changes from the remote base branch.
 
