@@ -40,6 +40,8 @@ Usage
 
 `git lava converge [-f] [<base>]` - Merge the current branch into the base branch. Defaults to the base branch saved by `git lava diverge` or master. By default, a merge commit will be created if there is more than 1 commit. To always fast-forward, use the optional `-f` flag.
 
+`git lava expose [<remote>]` - Push new local branch to optional remote for collaboration. Remote defaults to origin. The local branch is then diverged to continue local development.
+
 `git lava erupt [-dDf] [<base>]` - Same as above, but also push the base branch. By default, a merge commit will be created if there is more than 1 commit. To always fast-forward, use the optional `-f` flag. The optional `-d` flag will delete the current branch. The optional `-D` will delete both the current branch and the merge target.
 
 `git lava melt [<base>]` - Perform an interactive rebase against the remote base branch.

@@ -1,0 +1,25 @@
+#!/bin/bash
+
+cmd_default() {
+
+	local BRANCHNAME=$(current_branch)
+	local ORIGIN=${1-origin}
+
+	if ! git_remote_branch_exists "$ORIGIN/$BRANCHNAME"; then
+		git push -u $ORIGIN $BRANCHNAME && \
+		git lava diverge -b "$BRANCHNAME-dev"
+	else
+		warn "Branch has already been exposed. Not diverging."
+		git push $ORIGIN $BRANCHNAME
+	fi
+
+}
+
+cmd_help() {
+	
+	echo "git lava expose [<remote>]"
+	echo
+	echo "Push current branch to the optional remote. Defaults to origin."
+	echo "Local branch is set up to track new remote branch and is diverged"
+	echo "for further development."
+}
