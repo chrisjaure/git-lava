@@ -12,8 +12,9 @@ SCRIPT_FILES+=git-lava-diverge
 SCRIPT_FILES+=git-lava-flow
 SCRIPT_FILES+=git-lava-erupt
 SCRIPT_FILES+=git-lava-melt
-SCRIPT_FILES+=git-lava-examine
+SCRIPT_FILES+=git-lava-survey
 SCRIPT_FILES+=git-lava-base
+SCRIPT_FILES+=git-lava-expose
 
 # bash complete file
 BASH_COMPLETE_FILE=git-lava
